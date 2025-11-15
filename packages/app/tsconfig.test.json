@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES5"
+  },
+  "include": [
+    "src",
+    "test"
+  ]
+}

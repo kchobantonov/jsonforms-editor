@@ -1,0 +1,86 @@
+{
+  "name": "jsonforms-editor",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@jsonforms/editor": "workspace:*",
+    "@jsonforms/jsonforms-angular-webcomponent": "workspace:*",
+    "@mui/icons-material": "^7.3.0",
+    "@mui/material": "^7.3.0",
+    "@mui/x-date-pickers": "^8.11.3",
+    "monaco-editor": "0.52.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tslib": "^2.7.0"
+  },
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "test": "jest --no-cache",
+    "test-cov": "jest --no-cache --coverage",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --config video=false",
+    "cypress:ci": "concurrently \"pnpm start\" \"wait-on http://localhost:3000 && pnpm cypress:run\"",
+    "lint": "eslint --ext js,jsx,ts,tsx src cypress"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "concurrently": "^9.2.1",
+    "copy-webpack-plugin": "^11.0.0",
+    "cypress": "^13.14.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "html-webpack-plugin": "^5.6.4",
+    "jest": "^29.7.0",
+    "jsdom": "^22.0.0",
+    "jsdom-global": "^3.0.2",
+    "monaco-editor-webpack-plugin": "7.1.1",
+    "prettier": "^2.8.4",
+    "typescript": "~5.5.0",
+    "wait-on": "^9.0.3",
+    "webpack": "^5.78.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/test/**/*.test.tsx"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.test.json"
+      }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(monaco-editor)/)"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "identity-obj-proxy",
+      "monaco-editor": "<rootDir>/../node_modules/react-monaco-editor"
+    }
+  }
+}

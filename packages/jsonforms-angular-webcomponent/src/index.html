@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JsonformsAngularWebcomponent</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Roboto Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Material Icons (optional, but useful for Material components) -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- For development testing -->
+    <ng-jsonforms
+      schema='{
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "title": "Name" },
+          "age":  { "type": "number", "title": "Age" }
+        },
+        "required": ["age"]
+      }'
+      data='{
+        "name": "John Doe",
+        "age": 30
+      }'
+    >
+    </ng-jsonforms>
+
+    <script>
+      var form = document.querySelector('ng-jsonforms');
+      form.addEventListener('dataChange', function (event) {
+        console.log('Data changed:', event.detail);
+      });
+      form.addEventListener('errors', function (event) {
+        console.log('Errors:', event.detail);
+      });
+    </script>
+  </body>
+</html>
