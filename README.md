@@ -10,14 +10,13 @@ This is a monorepo consisting of the `@jsonforms/editor` library component and t
 
 You can try a [live demo of the editor](https://jsonforms-editor.netlify.app/) on Netlify.
 
-## Setup
+## Initial setup
 
-- `npm ci`
-- `npm run init`
+- Install dependencies: `pnpm i --frozen-lockfile`
 
 ## Build
 
-- `npm run build`
+- `pnpm run build`
 
 The `@jsonforms/editor` library component will be located in `jsonforms-editor/dist`.
 The JSON Forms editor app will be located in `app/build`.
@@ -26,7 +25,7 @@ The JSON Forms editor app will be located in `app/build`.
 
 ### Recommended setup
 
-- Node >= 12
+- Node >= 22
 - Visual Studio Code
 - Install recommended extensions
 
@@ -34,11 +33,11 @@ Linting, formatting and import sorting should work automatically.
 
 ### Scripts
 
-- Build and watch jsonforms-editor library with `npm run watch`
-- Start the app with `npm start`
-- Run unit tests with `npm run test`
-- Run UI tests with `npm run cypress:open`
+- Build and watch jsonforms-editor library with `pnpm run watch`
+- Start the app with `pnpm start`
+- Run unit tests with `pnpm run test`
+- Run UI tests with `pnpm run cypress:open`
 
 ### Debugging in VS Code
 
-Start the app by running `npm start` and start debugging in VS Code by pressing F5 or by clicking the green debug icon (launch config `Chrome Debug`).
+Start the app by running `pnpm start` and start debugging in VS Code by pressing F5 or by clicking the green debug icon (launch config `Chrome Debug`).
