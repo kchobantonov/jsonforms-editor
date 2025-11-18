@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig",
   "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
     "module": "CommonJS",
     "target": "ES5"
   },

@@ -26,7 +26,7 @@
     "start": "ng serve",
     "build": "ng build --configuration production && node create_ng-jsonforms.js",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "dependencies": {
     "@angular/animations": "^19.0.0",

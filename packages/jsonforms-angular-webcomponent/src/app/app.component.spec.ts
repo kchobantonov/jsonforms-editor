@@ -1,16 +1,27 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { ShadowDomOverlayContainer } from './shadow-dom-overlay-container';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [
+        { provide: OverlayContainer, useClass: ShadowDomOverlayContainer },
+      ],
     }).compileComponents();
   });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+
+    // 💡 CRITICAL STEP: Trigger change detection.
+    // This executes ngOnInit() on all components in the fixture,
+    // initializing the subscription in JsonFormsComponent.
+    fixture.detectChanges();
+
     expect(app).toBeTruthy();
   });
 
