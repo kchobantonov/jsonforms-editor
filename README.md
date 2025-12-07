@@ -1,8 +1,6 @@
 # JSON Forms Editor
 
-> [!CAUTION]
-> This editor is a proof of concept, is no longer maintained and is based on an older version of JSON Forms.<br/>
-> See [jsonforms.io](https://jsonforms.io) for more information about JSON Forms.
+This project is a maintained fork of https://github.com/eclipsesource/jsonforms-editor intended to continue its development.
 
 Editor for JSON Schema and JSON Forms Ui Schema
 
