@@ -16,13 +16,7 @@ const StyledContainer = styled(Container)({
 });
 
 const Copyright: React.FC = () => (
-  <Typography variant='body2' color='text.secondary'>
-    {'Copyright © '}
-    <Link color='inherit' href='https://eclipsesource.com' target='_blank'>
-      EclipseSource
-    </Link>{' '}
-    {new Date().getFullYear()}
-  </Typography>
+  <Typography variant='body2' color='text.secondary'></Typography>
 );
 
 export const Footer: React.FC = () => {
