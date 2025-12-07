@@ -8,7 +8,7 @@ This is a monorepo consisting of the `@jsonforms/editor` library component and t
 
 ## Live Demo
 
-You can try a [live demo of the editor](https://jsonforms-editor.netlify.app/) on Netlify.
+You can try a [live demo of the editor](https://kchobantonov.github.io/jsonforms-editor/).
 
 ## Initial setup
 
