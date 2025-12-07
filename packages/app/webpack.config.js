@@ -10,7 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
     clean: true,
-    publicPath: process.env.PUBLIC_URL || '/',
+    publicPath: '',
   },
   devtool:
     process.env.NODE_ENV === 'production'
