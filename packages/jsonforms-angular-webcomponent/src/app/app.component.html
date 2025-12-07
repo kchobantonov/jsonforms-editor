@@ -1,0 +1,20 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+/>
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<div class="jsonforms-container">
+  <jsonforms
+    [data]="internalData"
+    [schema]="internalSchema"
+    [uischema]="internalUischema"
+    [renderers]="renderers"
+    [readonly]="readonly"
+    (dataChange)="onDataChange($event)"
+    (errors)="onErrors($event)"
+  >
+  </jsonforms>
+</div>

@@ -1,4 +1,5 @@
 {
-  "packages": ["app", "jsonforms-editor", "testapp"],
-  "version": "0.1.0"
+  "version": "3.7.0-alpha.3",
+  "npmClient": "pnpm",
+  "useWorkspaces": true
 }
