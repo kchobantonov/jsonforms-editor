@@ -11,6 +11,8 @@ interface FormattedJsonProps {
   object?: any;
 }
 
-export const FormattedJson: React.FC<FormattedJsonProps> = (object) => {
-  return <pre>{JSON.stringify(object, null, 2)}</pre>;
+export const FormattedJson: React.FC<FormattedJsonProps> = ({
+  object: value,
+}: FormattedJsonProps) => {
+  return <pre>{JSON.stringify(value, null, 2)}</pre>;
 };
