@@ -5,7 +5,7 @@
  * https://github.com/eclipsesource/jsonforms-editor/blob/master/LICENSE
  * ---------------------------------------------------------------------
  */
-import { Container, Link, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React from 'react';
 
