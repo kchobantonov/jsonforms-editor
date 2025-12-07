@@ -10,7 +10,7 @@ import {
   defaultSchemaProviders,
   JsonFormsEditor,
   ReactMaterialPreview,
-} from '@jsonforms/editor';
+} from '@chobantonov/jsonforms-editor';
 import React from 'react';
 
 import { AngularMaterialPreview } from './components/AngularMaterialPreview';

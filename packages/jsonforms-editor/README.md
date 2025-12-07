@@ -8,17 +8,17 @@
 
 The JSON Forms Editor allows graphical editing of JSON Schemas and JSON Forms UI Schemas.
 
-This package contains the core `@jsonforms/editor` on which the [JSON Forms Editor app](../app) is based.
+This package contains the core `@chobantonov/jsonforms-editor` on which the [JSON Forms Editor app](../app) is based.
 
 ## Usage
 
-- `npm install --save @jsonforms/editor`
+- `npm install --save @chobantonov/jsonforms-editor`
 
 ```typescript
 import JsonFormsEditor, {
   defaultSchemaDecorators,
   propertySchemaProvider,
-} from '@jsonforms/editor';
+} from '@chobantonov/jsonforms-editor';
 
 const App = () => (
   <JsonFormsEditor

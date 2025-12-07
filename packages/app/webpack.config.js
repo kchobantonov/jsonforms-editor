@@ -55,7 +55,7 @@ module.exports = {
           },
         },
         {
-          from: 'node_modules/@jsonforms/jsonforms-angular-webcomponent/dist/jsonforms-angular-webcomponent',
+          from: 'node_modules/@chobantonov/jsonforms-angular-webcomponent/dist/jsonforms-angular-webcomponent',
           to: 'jsonforms-angular-webcomponent',
         },
       ],

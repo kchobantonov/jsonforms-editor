@@ -1,7 +1,7 @@
 # JSON Forms Editor app
 
 This is the official JSON Forms Editor app.
-It is based on the `@jsonforms/editor` component.
+It is based on the `@chobantonov/jsonforms-editor` component.
 
 ## Setup
 
@@ -13,7 +13,7 @@ See the [README](../README.md).
 - `npm run build`
 
 The JSON Forms editor app will be located in the `build` directory.
-Note that the build uses the built version of the `@jsonforms/editor` component.
+Note that the build uses the built version of the `@chobantonov/jsonforms-editor` component.
 
 ## Develop
 
@@ -24,7 +24,7 @@ The app is based on `create-react-app`.
 We use `rescripts` to customize non-configurable CRA features:
 
 - We add the `MonacoWebpackPlugin` to the build
-- We also add the `@jsonforms/editor` sources to the build.
+- We also add the `@chobantonov/jsonforms-editor` sources to the build.
 
 By consuming the sources we don't exactly behave like a regular consumer of the library.
 See the [testapp](../testapp) for smoke tests regarding this use case.

@@ -4,7 +4,7 @@ This project is a maintained fork of https://github.com/eclipsesource/jsonforms-
 
 Editor for JSON Schema and JSON Forms Ui Schema
 
-This is a monorepo consisting of the `@jsonforms/editor` library component and the published JSON Forms editor app.
+This is a monorepo consisting of the `@chobantonov/jsonforms-editor` library component and the published JSON Forms editor app.
 
 ## Live Demo
 
@@ -18,7 +18,7 @@ You can try a [live demo of the editor](https://kchobantonov.github.io/jsonforms
 
 - `pnpm run build`
 
-The `@jsonforms/editor` library component will be located in `jsonforms-editor/dist`.
+The `@chobantonov/jsonforms-editor` library component will be located in `jsonforms-editor/dist`.
 The JSON Forms editor app will be located in `app/build`.
 
 ## Develop

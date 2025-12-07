@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@jsonforms/editor": "workspace:*",
-    "@jsonforms/jsonforms-angular-webcomponent": "workspace:*",
+    "@chobantonov/jsonforms-editor": "workspace:*",
+    "@chobantonov/jsonforms-angular-webcomponent": "workspace:*",
     "@mui/icons-material": "^7.3.0",
     "@mui/material": "^7.3.0",
     "@mui/x-date-pickers": "^8.11.3",

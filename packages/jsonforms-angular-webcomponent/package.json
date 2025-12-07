@@ -1,14 +1,13 @@
 {
-  "name": "@jsonforms/jsonforms-angular-webcomponent",
+  "name": "@chobantonov/jsonforms-angular-webcomponent",
   "version": "0.1.0",
   "description": "JSON Forms Angular Web Component",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eclipsesource/jsonforms-editor.git",
+    "url": "git+https://github.com/kchobantonov/jsonforms-editor.git",
     "directory": "packages/jsonforms-angular-webcomponent"
   },
-  "bugs": "https://github.com/eclipsesource/jsonforms-editor/issues",
-  "homepage": "http://jsonforms.io/",
+  "bugs": "https://github.com/kchobantonov/jsonforms-editor/issues",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

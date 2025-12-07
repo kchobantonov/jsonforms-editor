@@ -4,7 +4,7 @@ import {
   JsonFormsEditor,
   defaultSchemaDecorators,
   defaultSchemaProviders,
-} from '@jsonforms/editor';
+} from '@chobantonov/jsonforms-editor';
 
 export const App = () => (
   <JsonFormsEditor
