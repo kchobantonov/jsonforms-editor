@@ -38,9 +38,9 @@
   "peerDependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
-    "@jsonforms/core": "3.7.0-alpha.3",
-    "@jsonforms/material-renderers": "3.7.0-alpha.3",
-    "@jsonforms/react": "3.7.0-alpha.3",
+    "@jsonforms/core": "3.7.0",
+    "@jsonforms/material-renderers": "3.7.0",
+    "@jsonforms/react": "3.7.0",
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
     "@mui/x-date-pickers": "^8.0.0",
@@ -60,8 +60,8 @@
   "devDependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
-    "@jsonforms/core": "3.7.0-alpha.3",
-    "@jsonforms/react": "3.7.0-alpha.3",
+    "@jsonforms/core": "3.7.0",
+    "@jsonforms/react": "3.7.0",
     "@mui/icons-material": "^7.3.0",
     "@mui/material": "^7.3.0",
     "@mui/x-date-pickers": "^8.11.3",

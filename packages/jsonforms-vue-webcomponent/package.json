@@ -1,0 +1,85 @@
+{
+  "name": "@chobantonov/jsonforms-vue-webcomponent",
+  "version": "0.1.0",
+  "description": "JSON Forms Vue Web Component",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kchobantonov/jsonforms-editor.git",
+    "directory": "packages/jsonforms-vue-webcomponent"
+  },
+  "bugs": "https://github.com/kchobantonov/jsonforms-editor/issues",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "directories": {
+    "src": "src",
+    "test": "test"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "rimraf dist",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "build-only": "cross-env NODE_OPTIONS=\"--max-old-space-size=4096\" vite build",
+    "type-check": "vue-tsc --build --force",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write src/",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@date-io/dayjs": "^3.2.0",
+    "@fontsource/roboto": "^4.5.8",
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "@jsonforms/core": "3.7.0",
+    "@jsonforms/vue": "3.7.0",
+    "@jsonforms/vue-vanilla": "3.7.0",
+    "@jsonforms/vue-vuetify": "3.7.0",
+    "@mdi/font": "^7.4.47",
+    "@vue/tsconfig": "^0.5.1",
+    "@vueuse/core": "^10.11.1",
+    "ajv": "^8.6.1",
+    "ajv-errors": "^3.0.0",
+    "ajv-i18n": "^4.2.0",
+    "ajv-keywords": "^5.1.0",
+    "core-js": "^3.9.1",
+    "dayjs": "^1.10.6",
+    "json-refs": "^3.0.15",
+    "lodash": "^4.17.15",
+    "shady-css-parser": "^0.1.0",
+    "vue": "^3.5.0",
+    "vuetify": "^3.9.0"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.8.0",
+    "@types/lodash": "^4.17.21",
+    "@typescript-eslint/eslint-plugin": "^8.40.0",
+    "@typescript-eslint/parser": "^8.40.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "@vue/test-utils": "^2.4.5",
+    "@vue/tsconfig": "^0.5.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "sass": "^1.75.0",
+    "vite": "^5.2.8",
+    "vite-plugin-dts": "^3.9.1",
+    "vite-plugin-node-polyfills": "^0.21.0",
+    "vite-plugin-static-copy": "^1.0.5",
+    "vite-plugin-vue-devtools": "^7.0.25",
+    "vite-plugin-vuetify": "^2.0.3",
+    "vitest": "^1.4.0",
+    "vue-eslint-parser": "^9.4.2",
+    "vue-tsc": "^2.0.11"
+  }
+}

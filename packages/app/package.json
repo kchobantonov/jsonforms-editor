@@ -5,6 +5,10 @@
   "dependencies": {
     "@chobantonov/jsonforms-editor": "workspace:*",
     "@chobantonov/jsonforms-angular-webcomponent": "workspace:*",
+    "@chobantonov/jsonforms-vue-webcomponent": "workspace:*",
+    "@jsonforms/core": "3.7.0",
+    "@jsonforms/vanilla-renderers": "3.7.0",
+    "@jsonforms/react": "3.7.0",
     "@mui/icons-material": "^7.3.0",
     "@mui/material": "^7.3.0",
     "@mui/x-date-pickers": "^8.11.3",

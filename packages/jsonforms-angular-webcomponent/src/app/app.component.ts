@@ -17,6 +17,7 @@ import {
   JsonFormsAngularMaterialModule,
 } from '@jsonforms/angular-material';
 import { ShadowDomOverlayContainer } from './shadow-dom-overlay-container';
+import { createAjv } from '@jsonforms/core';
 
 @Component({
   selector: 'ng-jsonforms',
@@ -39,10 +40,15 @@ export class AppComponent implements AfterViewInit {
   private _data: string | object = {};
   private _readonly: boolean = false;
   private _dark: boolean = false;
+  private _ajvOptions: string | object = {};
 
   internalSchema: any = {};
   internalUischema: any;
   internalData: any = {};
+  internalAjvOptions = {};
+
+  ajv = createAjv(this.internalAjvOptions);
+
   readonly renderers = angularMaterialRenderers;
 
   @Input()
@@ -74,6 +80,18 @@ export class AppComponent implements AfterViewInit {
   }
   get data() {
     return this._data;
+  }
+
+  @Input()
+  set ajvOptions(value: string | object) {
+    this._ajvOptions = value;
+    this.internalAjvOptions =
+      typeof value === 'string' ? JSON.parse(value) : value;
+
+    this.ajv = createAjv(this.internalAjvOptions);
+  }
+  get ajvOptions() {
+    return this._ajvOptions;
   }
 
   @Input()

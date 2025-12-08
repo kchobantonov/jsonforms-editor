@@ -14,6 +14,9 @@ import {
 import React from 'react';
 
 import { AngularMaterialPreview } from './components/AngularMaterialPreview';
+import { VueVanillaPreview } from './components/VueVanillaPreview';
+import { VueVuetifyPreview } from './components/VueVuetifyPreview';
+import { ReactVanillaPreview } from './components/ReactVanillaPreview';
 import { Footer } from './components/Footer';
 import { ExampleSchemaService } from './core/schemaService';
 
@@ -24,8 +27,11 @@ export const App = () => (
     schemaProviders={defaultSchemaProviders}
     schemaDecorators={defaultSchemaDecorators}
     editorTabs={[
-      { name: 'Preview (React)', Component: ReactMaterialPreview },
+      { name: 'Preview (React Material)', Component: ReactMaterialPreview },
+      { name: 'Preview (React Vanilla)', Component: ReactVanillaPreview },
       { name: 'Preview (Angular)', Component: AngularMaterialPreview },
+      { name: 'Preview (Vue Vuetify)', Component: VueVuetifyPreview },
+      { name: 'Preview (Vue Vanilla)', Component: VueVanillaPreview },
     ]}
     footer={Footer}
   />

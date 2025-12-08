@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue JsonForms WebComponent</title>
+  </head>
+  <body>
+    <vue-vuetify-jsonforms
+      dark="false"
+      schema='{
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "title": "Name" },
+          "age":  { "type": "number", "title": "Age" }
+        },
+        "required": ["age"]
+      }'
+      data='{
+        "name": "John Doe",
+        "age": 30
+      }'
+    >
+    </vue-vuetify-jsonforms>
+
+    <script type="module" src="./src/web-component.ts"></script>
+  </body>
+</html>

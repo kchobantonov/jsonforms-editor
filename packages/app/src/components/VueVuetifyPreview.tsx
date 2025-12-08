@@ -17,12 +17,12 @@ import React, { useMemo } from 'react';
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'ng-jsonforms': any;
+      'vue-vuetify-jsonforms': any;
     }
   }
 }
 
-export const AngularMaterialPreview: React.FC = () => {
+export const VueVuetifyPreview: React.FC = () => {
   const schema = useExportSchema();
   const uiSchema = useExportUiSchema();
   const editorSchema = useSchema();
@@ -37,12 +37,13 @@ export const AngularMaterialPreview: React.FC = () => {
 
   return inputSchema ? (
     <div>
-      <ng-jsonforms
+      <vue-vuetify-jsonforms
+        dark='false'
         ajv-options={options}
         schema={inputSchema}
         uischema={inputUISchema}
         data={inputData}
-      ></ng-jsonforms>
+      ></vue-vuetify-jsonforms>
     </div>
   ) : null;
 };
