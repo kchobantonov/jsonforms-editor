@@ -14,13 +14,15 @@ import {
 import React from 'react';
 
 import { AngularMaterialPreview } from './components/AngularMaterialPreview';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
+import { ReactVanillaPreview } from './components/ReactVanillaPreview';
 import { VueVanillaPreview } from './components/VueVanillaPreview';
 import { VueVuetifyPreview } from './components/VueVuetifyPreview';
-import { ReactVanillaPreview } from './components/ReactVanillaPreview';
-import { Footer } from './components/Footer';
 import { ExampleSchemaService } from './core/schemaService';
 
 const schemaService = new ExampleSchemaService();
+
 export const App = () => (
   <JsonFormsEditor
     schemaService={schemaService}
@@ -33,6 +35,7 @@ export const App = () => (
       { name: 'Preview (Vue Vuetify)', Component: VueVuetifyPreview },
       { name: 'Preview (Vue Vanilla)', Component: VueVanillaPreview },
     ]}
+    header={Header}
     footer={Footer}
   />
 );
