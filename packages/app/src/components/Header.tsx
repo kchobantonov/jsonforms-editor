@@ -14,6 +14,7 @@ import {
 } from '@chobantonov/jsonforms-editor';
 import { ExampleDescription, getExamples } from '@jsonforms/examples';
 import CloudDownload from '@mui/icons-material/CloudDownload';
+import Settings from '@mui/icons-material/Settings';
 import { FormControl, InputLabel } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -24,6 +25,8 @@ import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
+import { useEditorConfig } from '../config/EditorConfigContext';
+import { EditorConfigDrawer } from './EditorConfigDrawer';
 
 const Title = styled(Typography)({
   flexGrow: 1,
@@ -37,6 +40,8 @@ export const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
   const onClose = () => setOpen(false);
   const openDownloadDialog = () => setOpen(true);
+  const [configOpen, setConfigOpen] = useState(false);
+  const { config, updateConfig } = useEditorConfig();
 
   const dispatch = useEditorContext().dispatch;
 
@@ -107,6 +112,13 @@ export const Header: React.FC = () => {
           >
             <CloudDownload />
           </IconButton>
+          <IconButton
+            aria-label='Configuration'
+            onClick={() => setConfigOpen(true)}
+            color='inherit'
+          >
+            <Settings />
+          </IconButton>
         </Box>
       </Toolbar>
       {open && (
@@ -117,6 +129,12 @@ export const Header: React.FC = () => {
           uiSchema={uiSchema}
         />
       )}
+      <EditorConfigDrawer
+        open={configOpen}
+        onClose={() => setConfigOpen(false)}
+        config={config}
+        onChange={updateConfig}
+      />
     </AppBar>
   );
 };

@@ -13,6 +13,8 @@ import {
   useSchema,
 } from '@chobantonov/jsonforms-editor';
 import React, { useMemo } from 'react';
+import { useEditorConfig } from '../config/EditorConfigContext';
+import { resolveThemeMode } from '../theme/resolveThemeMode';
 
 declare global {
   namespace JSX {
@@ -34,11 +36,13 @@ export const VueVuetifyPreview: React.FC = () => {
   const inputUISchema = JSON.stringify(uiSchema);
   const inputData = JSON.stringify(data);
   const options = JSON.stringify(previewOptions);
+  const { config } = useEditorConfig();
+  const themeMode = resolveThemeMode(config.themeMode);
 
   return inputSchema ? (
     <div>
       <vue-vuetify-jsonforms
-        dark='false'
+        dark={themeMode === 'dark'}
         ajv-options={options}
         schema={inputSchema}
         uischema={inputUISchema}

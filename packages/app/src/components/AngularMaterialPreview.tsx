@@ -13,6 +13,8 @@ import {
   useSchema,
 } from '@chobantonov/jsonforms-editor';
 import React, { useMemo } from 'react';
+import { resolveThemeMode } from '../theme/resolveThemeMode';
+import { useEditorConfig } from '../config/EditorConfigContext';
 
 declare global {
   namespace JSX {
@@ -35,9 +37,13 @@ export const AngularMaterialPreview: React.FC = () => {
   const inputData = JSON.stringify(data);
   const options = JSON.stringify(previewOptions);
 
+  const { config } = useEditorConfig();
+  const themeMode = resolveThemeMode(config.themeMode);
+
   return inputSchema ? (
     <div>
       <ng-jsonforms
+        dark={themeMode === 'dark'}
         ajv-options={options}
         schema={inputSchema}
         uischema={inputUISchema}
