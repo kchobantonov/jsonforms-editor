@@ -55,7 +55,7 @@
     "lodash": "^4.17.15",
     "shady-css-parser": "^0.1.0",
     "vue": "^3.5.0",
-    "vuetify": "^3.9.0"
+    "vuetify": "^3.11.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",

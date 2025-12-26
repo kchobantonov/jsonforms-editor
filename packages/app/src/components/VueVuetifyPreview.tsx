@@ -47,6 +47,36 @@ export const VueVuetifyPreview: React.FC = () => {
         schema={inputSchema}
         uischema={inputUISchema}
         data={inputData}
+        vuetify-options={JSON.stringify({
+          defaults: {
+            VField: {
+              variant: 'outlined',
+            },
+            VTextField: {
+              variant: 'outlined',
+            },
+            VCombobox: {
+              variant: 'outlined',
+            },
+            VSelect: {
+              variant: 'outlined',
+            },
+            VAutocomplete: {
+              variant: 'outlined',
+            },
+            VTextarea: {
+              variant: 'outlined',
+            },
+            VNumberInput: {
+              variant: 'outlined',
+              inset: true,
+            },
+            VDateInput: {
+              variant: 'outlined',
+            },
+            VCheckbox: { color: 'primary' },
+          },
+        })}
       ></vue-vuetify-jsonforms>
     </div>
   ) : null;

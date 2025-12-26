@@ -8,22 +8,61 @@
     <title>Vue JsonForms WebComponent</title>
   </head>
   <body>
-    <vue-vuetify-jsonforms
-      dark="false"
-      schema='{
-        "type": "object",
-        "properties": {
-          "name": { "type": "string", "title": "Name" },
-          "age":  { "type": "number", "title": "Age" }
+    <vue-vuetify-jsonforms dark="false"> </vue-vuetify-jsonforms>
+
+    <script type="module">
+      const schema = {
+        type: 'object',
+        properties: {
+          name: { type: 'string', title: 'Name' },
+          age: { type: 'number', title: 'Age' },
         },
-        "required": ["age"]
-      }'
-      data='{
-        "name": "John Doe",
-        "age": 30
-      }'
-    >
-    </vue-vuetify-jsonforms>
+        required: ['age'],
+      };
+
+      const data = {
+        name: 'John Doe',
+        age: 30,
+      };
+
+      const vuetifyOptions = {
+        blueprint: 'md1',
+        defaults: {
+          VField: {
+            variant: 'outlined',
+          },
+          VTextField: {
+            variant: 'outlined',
+          },
+          VCombobox: {
+            variant: 'outlined',
+          },
+          VSelect: {
+            variant: 'outlined',
+          },
+          VAutocomplete: {
+            variant: 'outlined',
+          },
+          VTextarea: {
+            variant: 'outlined',
+          },
+          VNumberInput: {
+            variant: 'outlined',
+            inset: true,
+          },
+          VDateInput: {
+            variant: 'outlined',
+          },
+          VCheckbox: { color: 'primary' },
+        },
+      };
+
+      const form = document.querySelector('vue-vuetify-jsonforms');
+
+      form.schema = schema;
+      form.data = data;
+      form.vuetifyOptions = vuetifyOptions;
+    </script>
 
     <script type="module" src="./src/web-component.ts"></script>
   </body>
