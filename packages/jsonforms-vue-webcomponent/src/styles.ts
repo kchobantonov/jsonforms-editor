@@ -1,8 +1,9 @@
 import jsonFormsVueVuetifyStyles from '@jsonforms/vue-vuetify/lib/jsonforms-vue-vuetify.css?inline';
-import materialDesignIconsStyles from '@mdi/font/css/materialdesignicons.css?url';
-import fontAwesomeStyles from '@fortawesome/fontawesome-free/css/all.css?url';
 import vuetifyStyles from 'vuetify/dist/vuetify.css?inline';
 import vuetifyLabsStyles from 'vuetify/dist/vuetify-labs.css?inline';
+
+import materialDesignIconsStyles from '@mdi/font/css/materialdesignicons.css?url';
+import fontAwesomeStyles from '@fortawesome/fontawesome-free/css/all.css?url';
 
 const vuetifyResetStyles = `
 :host {
