@@ -49,6 +49,9 @@ export const VueVuetifyPreview: React.FC = () => {
         data={inputData}
         vuetify-options={JSON.stringify({
           defaults: {
+            global: {
+              hideDetails: 'auto',
+            },
             VField: {
               variant: 'outlined',
             },
