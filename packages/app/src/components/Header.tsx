@@ -41,6 +41,7 @@ export const Header: React.FC = () => {
   const onClose = () => setOpen(false);
   const openDownloadDialog = () => setOpen(true);
   const [configOpen, setConfigOpen] = useState(false);
+  const [selectedExample, setSelectedExample] = useState<number | ''>('');
   const { config, updateConfig } = useEditorConfig();
 
   const dispatch = useEditorContext().dispatch;
@@ -48,6 +49,7 @@ export const Header: React.FC = () => {
   const changeExample = (exampleID: number) => {
     const example = examples[exampleID];
 
+    setSelectedExample(exampleID);
     dispatch(Actions.setSchema(example.schema));
     dispatch(Actions.setUiSchema(example.uischema));
   };
@@ -81,6 +83,7 @@ export const Header: React.FC = () => {
               size='small'
               labelId='example-select-label'
               label='Example'
+              value={selectedExample}
               onChange={(ev) => changeExample(Number(ev.target.value))}
               variant='outlined'
               sx={{

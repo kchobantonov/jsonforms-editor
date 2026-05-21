@@ -92,6 +92,8 @@ export const EditorConfigDrawer: React.FC<Props> = ({
             'react-vanilla',
             'vue-vuetify',
             'vue-vanilla',
+            'svelte-skeleton',
+            'svelte-flowbite',
             'angular-material',
           ].map((id) => (
             <FormControlLabel

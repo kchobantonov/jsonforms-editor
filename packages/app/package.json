@@ -5,6 +5,7 @@
   "dependencies": {
     "@chobantonov/jsonforms-editor": "workspace:*",
     "@chobantonov/jsonforms-angular-webcomponent": "workspace:*",
+    "@chobantonov/jsonforms-svelte-webcomponent": "workspace:*",
     "@chobantonov/jsonforms-vue-webcomponent": "workspace:*",
     "@jsonforms/core": "3.7.0",
     "@jsonforms/vanilla-renderers": "3.7.0",

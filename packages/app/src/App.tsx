@@ -17,6 +17,8 @@ import { AngularMaterialPreview } from './components/AngularMaterialPreview';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { ReactVanillaPreview } from './components/ReactVanillaPreview';
+import { SvelteFlowbitePreview } from './components/SvelteFlowbitePreview';
+import { SvelteSkeletonPreview } from './components/SvelteSkeletonPreview';
 import { VueVanillaPreview } from './components/VueVanillaPreview';
 import { VueVuetifyPreview } from './components/VueVuetifyPreview';
 import { ExampleSchemaService } from './core/schemaService';
@@ -63,6 +65,16 @@ const ConfigAwareEditor: React.FC = () => {
           id: PREVIEW_IDS.VUE_VANILLA,
           name: 'Preview (Vue Vanilla)',
           Component: VueVanillaPreview,
+        },
+        {
+          id: PREVIEW_IDS.SVELTE_SKELETON,
+          name: 'Preview (Svelte Skeleton)',
+          Component: SvelteSkeletonPreview,
+        },
+        {
+          id: PREVIEW_IDS.SVELTE_FLOWBITE,
+          name: 'Preview (Svelte Flowbite)',
+          Component: SvelteFlowbitePreview,
         },
       ].filter((tab) => config.enabledRenderers.includes(tab.id)),
     [config.enabledRenderers]

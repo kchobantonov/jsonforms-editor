@@ -14,6 +14,8 @@ export const PREVIEW_IDS = {
   ANGULAR_MATERIAL: 'angular-material',
   VUE_VUETIFY: 'vue-vuetify',
   VUE_VANILLA: 'vue-vanilla',
+  SVELTE_SKELETON: 'svelte-skeleton',
+  SVELTE_FLOWBITE: 'svelte-flowbite',
 } as const;
 
 export const defaultConfig: EditorConfig = {
@@ -24,6 +26,8 @@ export const defaultConfig: EditorConfig = {
     'react-vanilla',
     'vue-vuetify',
     'vue-vanilla',
+    'svelte-skeleton',
+    'svelte-flowbite',
     'angular-material',
   ],
 };

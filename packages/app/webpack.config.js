@@ -62,6 +62,10 @@ module.exports = {
           from: 'node_modules/@chobantonov/jsonforms-vue-webcomponent/dist',
           to: 'jsonforms-vue-webcomponent',
         },
+        {
+          from: 'node_modules/@chobantonov/jsonforms-svelte-webcomponent/dist',
+          to: 'jsonforms-svelte-webcomponent',
+        },
       ],
     }),
     new MonacoWebpackPlugin({

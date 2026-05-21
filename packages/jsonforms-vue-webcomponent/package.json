@@ -53,6 +53,7 @@
     "dayjs": "^1.10.6",
     "json-refs": "^3.0.15",
     "lodash": "^4.17.15",
+    "maska": "^2.1.11",
     "shady-css-parser": "^0.1.0",
     "vue": "^3.5.0",
     "vuetify": "^3.11.0"
