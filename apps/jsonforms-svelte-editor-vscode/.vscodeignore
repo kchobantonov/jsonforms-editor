@@ -1,0 +1,10 @@
+**/*
+!package.json
+!README.md
+!LICENSE
+!icon.png
+!schemas/**
+!dist/extension.cjs
+!dist/webview/**
+dist/**/*.map
+dist/**/*.vsix

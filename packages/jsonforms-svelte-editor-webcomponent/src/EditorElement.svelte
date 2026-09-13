@@ -3,6 +3,7 @@
     shadow: "open",
     props: {
       initialForm: { type: "Object" },
+      defaultConfig: { type: "Object", attribute: "default-config" },
       editorLocale: { type: "String", attribute: "editor-locale" },
       formLocale: { type: "String", attribute: "form-locale" },
       editorMessages: { type: "Object" },
@@ -18,6 +19,7 @@
 
   let {
     initialForm = {},
+    defaultConfig = {},
     editorLocale = "en",
     formLocale = "en",
     editorMessages = {},
@@ -25,6 +27,7 @@
     editorMode = "system",
   }: {
     initialForm?: InitialForm;
+    defaultConfig?: NonNullable<InitialForm["config"]>;
     editorLocale?: string;
     formLocale?: string;
     editorMessages?: import("@chobantonov/jsonforms-svelte-editor").EditorMessages;
@@ -59,6 +62,7 @@
         }),
       )}
     {initialForm}
+    {defaultConfig}
     {editorLocale}
     {formLocale}
     {editorMessages}

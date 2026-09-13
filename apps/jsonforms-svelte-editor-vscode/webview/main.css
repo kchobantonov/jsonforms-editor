@@ -1,0 +1,6 @@
+html, body { margin: 0; padding: 0; height: 100%; background: var(--vscode-editor-background); color: var(--vscode-editor-foreground); font-family: var(--vscode-font-family); }
+body { display: flex; flex-direction: column; overflow: hidden; }
+#editor { min-width: 0; min-height: 0; flex: 1; }
+#message { padding: 8px 12px; border-bottom: 1px solid var(--vscode-panel-border); background: var(--vscode-inputValidation-warningBackground); color: var(--vscode-editor-foreground); font-size: 12px; }
+#message[hidden] { display: none; }
+jsonforms-svelte-editor { display: block; height: 100%; }

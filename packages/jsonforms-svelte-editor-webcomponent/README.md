@@ -34,3 +34,7 @@ Build from the repository root with `pnpm editor:build`. See the [native editor 
 ## Shared shadcn sources
 
 `src/components/ui` is the unchanged repository shadcn component set. The wrapper and demo map `@jsonforms-svelte-shadcn-ui` to this directory for both the editor and its native JSON Forms inspector. Customize a shared component here (with owner awareness) and rebuild to update both consumers. The separately bundled preview renderer has its own component distribution.
+
+### Preview configuration defaults
+
+Set the optional `defaultConfig` object property to provide host-level JSON Forms preview defaults. The preview shallow-merges these with the form’s `config`, with form values taking precedence. Inherited defaults are never added to the form model or document-change events. Changes to this property update the preview.

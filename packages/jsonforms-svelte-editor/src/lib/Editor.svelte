@@ -5,6 +5,7 @@
   import type { InitialForm } from "./editor/document/types.js";
   let {
     initialForm = {},
+    defaultConfig = {},
     editorLocale = "en",
     formLocale = "en",
     editorMessages = {},
@@ -15,6 +16,7 @@
     onhistory = () => {},
   }: {
     initialForm?: InitialForm;
+    defaultConfig?: NonNullable<InitialForm["config"]>;
     editorLocale?: string;
     formLocale?: string;
     editorMessages?: EditorMessages;
@@ -38,6 +40,7 @@
     bind:this={shell}
     {onhistory}
     {initialForm}
+    {defaultConfig}
     {editorLocale}
     {formLocale}
     {editorMessages}

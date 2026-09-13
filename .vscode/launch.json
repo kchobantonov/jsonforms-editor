@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [{
+    "name": "JSON Forms Svelte Editor Extension",
+    "type": "extensionHost",
+    "request": "launch",
+    "args": ["--extensionDevelopmentPath=${workspaceFolder}/apps/jsonforms-svelte-editor-vscode"],
+    "outFiles": ["${workspaceFolder}/apps/jsonforms-svelte-editor-vscode/dist/**/*.cjs"],
+    "preLaunchTask": "Build VS Code extension"
+  }]
+}

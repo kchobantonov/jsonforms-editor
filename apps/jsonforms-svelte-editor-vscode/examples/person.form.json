@@ -1,0 +1,11 @@
+{
+  "schema": {
+    "type": "object",
+    "properties": { "name": { "type": "string" }, "age": { "type": "integer", "minimum": 0 } }
+  },
+  "uischema": {
+    "type": "VerticalLayout",
+    "elements": [{ "type": "Control", "scope": "#/properties/name" }, { "type": "Control", "scope": "#/properties/age" }]
+  },
+  "data": { "name": "Ada", "age": 37 }
+}

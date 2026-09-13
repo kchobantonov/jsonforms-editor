@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { previewConfigContext } from "./preview-config.js";
   import { formLanguages } from "./i18n/form-languages.js";
   import * as ScrollArea from "@jsonforms-svelte-shadcn-ui/scroll-area/index.js";
   import * as Resizable from "@jsonforms-svelte-shadcn-ui/resizable/index.js";
@@ -22,6 +23,7 @@
   import type { InitialForm } from "./document/types.js";
   let {
     initialForm,
+    defaultConfig = {},
     editorLocale = "en",
     formLocale = "en",
     editorMessages = {},
@@ -31,6 +33,7 @@
     onhistory = () => {},
   }: {
     initialForm: InitialForm;
+    defaultConfig?: NonNullable<InitialForm["config"]>;
     editorLocale?: string;
     formLocale?: string;
     editorMessages?: EditorMessages;
@@ -39,6 +42,7 @@
     ondraft: (dirty: boolean) => void;
     onhistory?: (state: { canUndo: boolean; canRedo: boolean }) => void;
   } = $props();
+  setContext(previewConfigContext, () => defaultConfig);
   const session = createSession(
     untrack(() => initialForm),
     (document, revision) => onchange(document, revision),

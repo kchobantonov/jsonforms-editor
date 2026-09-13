@@ -1,7 +1,9 @@
 <script lang="ts">
   import { useEditorI18n } from "../../i18n/context.js";
   const i18n = useEditorI18n();
-  import { onMount } from "svelte";
+  import { onMount, getContext } from "svelte";
+  import { previewConfigContext, type PreviewConfigProvider } from "../../preview-config.js";
+  const defaultConfig = getContext<PreviewConfigProvider | undefined>(previewConfigContext);
   import { runtimeControlStyles } from "../../theme/runtime-controls.js";
   import type { InitialForm, JsonValue } from "../../document/types.js";
   let {
@@ -43,7 +45,7 @@
       element.schema = form.schema;
       element.uischema = form.uischema;
       element.uischemas = form.uischemas ?? [];
-      element.config = form.config ?? {};
+      element.config = { ...defaultConfig?.(), ...form.config };
       element.translations = form.translations;
       element.locale = i18n.formLocale;
       element.mode = mode;

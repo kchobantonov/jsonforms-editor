@@ -10,6 +10,7 @@ export interface EditorElement extends HTMLElement {
   formLocale: string;
   editorMessages: import("@chobantonov/jsonforms-svelte-editor").EditorMessages;
   initialForm: InitialForm;
+  defaultConfig: NonNullable<InitialForm["config"]>;
   documentId: string;
   editorMode: "light" | "dark" | "system";
 }

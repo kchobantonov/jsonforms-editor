@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JSON Forms project",
+  "type": "object",
+  "required": ["version", "files"],
+  "properties": {
+    "version": { "const": 1 },
+    "files": {
+      "type": "object",
+      "description": "Paths relative to this manifest. Missing files mean the corresponding part is undefined. Each part must use a separate JSON file.",
+      "additionalProperties": false,
+      "properties": {
+        "schema": { "$ref": "#/definitions/path" },
+        "uischema": { "$ref": "#/definitions/path" },
+        "data": { "$ref": "#/definitions/path" },
+        "uischemas": { "$ref": "#/definitions/path" },
+        "config": { "$ref": "#/definitions/path" },
+        "translations": { "$ref": "#/definitions/path" }
+      }
+    },
+    "model": { "type": "object", "description": "Optional inline model parts and additional model properties. A part cannot also appear in files." }
+  },
+  "definitions": { "path": { "type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\:]).+\\.json$" } }
+}

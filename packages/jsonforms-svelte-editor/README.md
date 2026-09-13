@@ -91,3 +91,7 @@ have a **Control placement** chooser in the inspector, retaining the current
 occurrence when possible. Schema properties are shared across placements, while
 UI options are edited per placement. Unplaced fields show a selection message;
 use JSON Model to edit their schema before placing them.
+
+### Preview configuration defaults
+
+Set the optional `defaultConfig` object property to provide host-level JSON Forms preview defaults. The preview shallow-merges these with the form’s `config`, with form values taking precedence. Inherited defaults are never added to the form model or document-change events. Changes to this property update the preview.

@@ -77,3 +77,7 @@ The three editor projects, their tests and `docs/form-editor` were moved from `j
 Pushes and pull requests to `master` build and test the editor. Successful `master` builds deploy the demo to [GitHub Pages](https://kchobantonov.github.io/jsonforms-editor/). Package releases use Changesets, matching the `jsonforms-svelte` project.
 
 See [release setup and commands](docs/releases.md) for the Pages setting, npm secret, release PR workflow, and local tarball validation.
+
+## VS Code extension
+
+[`jsonforms-svelte-editor-vscode`](apps/jsonforms-svelte-editor-vscode/README.md) integrates the editor webcomponent with native VS Code Save and Undo/Redo, theme support, preview defaults, and bundled or multi-file form models. Build an installable extension with `pnpm vscode:package`.

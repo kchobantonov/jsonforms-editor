@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "files": {
+    "schema": "person.schema.json",
+    "uischema": "person.uischema.json",
+    "data": "sample-values.json",
+    "config": "person.config.json",
+    "translations": "person.translations.json",
+    "uischemas": "person.uischemas.json"
+  }
+}

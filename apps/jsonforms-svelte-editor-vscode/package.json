@@ -1,0 +1,166 @@
+{
+  "name": "jsonforms-svelte-editor-vscode",
+  "displayName": "JSON Forms Svelte Editor",
+  "description": "Design JSON Forms as bundled models or explicitly associated JSON files.",
+  "version": "0.1.0",
+  "publisher": "kchobantonov",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "main": "./dist/extension.cjs",
+  "activationEvents": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "jsonformsSvelteEditor.designer",
+        "displayName": "JSON Forms Svelte Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.form.json"
+          },
+          {
+            "filenamePattern": "*.form-project.json"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "jsonformsSvelteEditor.open",
+        "title": "JSON Forms Svelte Editor: Open in Designer"
+      },
+      {
+        "command": "jsonformsSvelteEditor.createProject",
+        "title": "JSON Forms Svelte Editor: Create Project from JSON Files…"
+      },
+      {
+        "command": "jsonformsSvelteEditor.openSources",
+        "title": "JSON Forms Svelte Editor: Open Source Files"
+      },
+      {
+        "command": "jsonformsSvelteEditor.newForm",
+        "title": "JSON Forms Svelte Editor: New Form…"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "jsonformsSvelteEditor.open",
+          "when": "resourceExtname == .json",
+          "group": "navigation"
+        },
+        {
+          "command": "jsonformsSvelteEditor.createProject",
+          "when": "resourceExtname == .json",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "jsonformsSvelteEditor.openSources",
+          "when": "activeCustomEditorId == jsonformsSvelteEditor.designer",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "JSON Forms Svelte Editor",
+      "properties": {
+        "jsonformsSvelteEditor.defaultConfig": {
+          "type": "object",
+          "default": {},
+          "scope": "resource",
+          "description": "Default JSON Forms runtime configuration. Form config overrides matching keys. Defaults are never saved into form files."
+        },
+        "jsonformsSvelteEditor.editorLanguage": {
+          "type": "string",
+          "default": "en",
+          "enum": [
+            "en",
+            "bg"
+          ],
+          "scope": "resource",
+          "description": "Designer interface language."
+        },
+        "jsonformsSvelteEditor.formLanguage": {
+          "type": "string",
+          "default": "en",
+          "scope": "resource",
+          "description": "Initial preview language."
+        }
+      },
+      "type": "object",
+      "order": 20
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": "*.form-project.json",
+        "url": "./schemas/form-project.schema.json"
+      }
+    ],
+    "configurationDefaults": {
+      "workbench.diffEditorAssociations": {
+        "*.form.json": "default",
+        "*.form-project.json": "default"
+      }
+    }
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "test:integration": "node --experimental-strip-types scripts/test-integration.ts",
+    "vscode:prepublish": "pnpm build",
+    "package": "vsce package --no-dependencies --out dist/jsonforms-svelte-editor-vscode.vsix"
+  },
+  "devDependencies": {
+    "@chobantonov/jsonforms-svelte-editor-webcomponent": "workspace:*",
+    "@types/node": "^22.19.3",
+    "@types/vscode": "1.96.0",
+    "@vscode/vsce": "^3.2.1",
+    "esbuild": "^0.27.0",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kchobantonov/jsonforms-editor.git",
+    "directory": "apps/jsonforms-svelte-editor-vscode"
+  },
+  "type": "module",
+  "author": "Krasimir Chobantonov",
+  "preview": true,
+  "bugs": "https://github.com/kchobantonov/jsonforms-editor/issues",
+  "keywords": [
+    "svelte",
+    "shadcn",
+    "editor",
+    "form",
+    "forms",
+    "json",
+    "jsonforms",
+    "frontend",
+    "generator",
+    "input",
+    "renderengine",
+    "jsonschema",
+    "schema",
+    "uischema",
+    "layout",
+    "customization",
+    "template"
+  ],
+  "icon": "icon.png"
+}

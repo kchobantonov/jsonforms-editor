@@ -27,7 +27,10 @@
     "changeset": "changeset",
     "changeset:version": "changeset version && pnpm install --lockfile-only",
     "changeset:publish": "pnpm editor:build && node scripts/pack-release.mjs && changeset publish",
-    "release:pack": "pnpm editor:build && node scripts/pack-release.mjs"
+    "release:pack": "pnpm editor:build && node scripts/pack-release.mjs",
+    "vscode:build": "pnpm editor:build && pnpm --filter jsonforms-svelte-editor-vscode build",
+    "vscode:package": "pnpm vscode:build && pnpm --filter jsonforms-svelte-editor-vscode package",
+    "vscode:test": "pnpm --filter jsonforms-svelte-editor-vscode test && pnpm --filter jsonforms-svelte-editor-vscode test:integration"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
