@@ -1,3 +1,4 @@
+import { resolveSchema, type JsonSchema } from "@jsonforms/core";
 import { applyChoiceProperties } from "../../inspector/choices.js";
 import { applyTranslations } from "../../inspector/translations.js";
 import { parseSchemaValue } from "../../inspector/json-values.js";
@@ -30,21 +31,30 @@ export const object = (value: unknown): ObjectValue =>
     : {};
 export const escapePointer = (value: string) =>
   value.replace(/~/g, "~0").replace(/\//g, "~1");
-export function resolve(schema: unknown, scope: unknown): ObjectValue {
-  if (typeof scope !== "string" || !scope.startsWith("#/")) return {};
+/** Resolve explicit pointers first so property edits keep the original schema object. */
+function schemaAtScope(schema: unknown, scope: unknown): unknown {
+  if (scope === "#" || scope === "#/") return schema;
+  if (typeof scope !== "string" || !scope.startsWith("#/")) return undefined;
   try {
-    return object(
-      decodeURIComponent(scope.slice(2))
-        .split("/")
-        .reduce<unknown>(
-          (value, part) =>
-            object(value)[part.replace(/~1/g, "/").replace(/~0/g, "~")],
-          schema,
-        ),
-    );
+    const pointer = decodeURIComponent(scope);
+    let value: unknown = schema;
+    for (const part of pointer.slice(2).split("/")) {
+      const key = part.replace(/~1/g, "/").replace(/~0/g, "~");
+      if (value === null || typeof value !== "object" || !Object.hasOwn(value, key)) {
+        value = undefined;
+        break;
+      }
+      value = (value as Record<string, unknown>)[key];
+    }
+    if (value !== undefined) return value;
+    // Match the renderer's lookup through compositions, conditional branches and refs.
+    return resolveSchema(schema as JsonSchema, pointer, schema as JsonSchema);
   } catch {
-    return {};
+    return undefined;
   }
+}
+export function resolve(schema: unknown, scope: unknown): ObjectValue {
+  return object(schemaAtScope(schema, scope));
 }
 export function fields(
   schema: unknown,
@@ -369,20 +379,7 @@ export function previewSafe(value: unknown): boolean {
 }
 
 export function hasScope(schema: unknown, scope: unknown): boolean {
-  if (scope === "#") return schema !== undefined;
-  if (typeof scope !== "string" || !scope.startsWith("#/")) return false;
-  try {
-    let value: unknown = schema;
-    for (const part of decodeURIComponent(scope.slice(2)).split("/")) {
-      const key = part.replace(/~1/g, "/").replace(/~0/g, "~");
-      const record = object(value);
-      if (!Object.hasOwn(record, key)) return false;
-      value = record[key];
-    }
-    return value !== undefined;
-  } catch {
-    return false;
-  }
+  return schemaAtScope(schema, scope) !== undefined;
 }
 export function brokenScopes(document: Document): string[] {
   const result: string[] = [];

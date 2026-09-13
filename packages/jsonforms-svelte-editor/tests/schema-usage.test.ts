@@ -77,3 +77,13 @@ test("bound root objects use generated fields, while explicit details leave omit
   assert.ok(!nested.has("#/properties/enabled"));
   assert.deepEqual([...usedSchemaScopes(root, bound({ detail: { type: "VerticalLayout", elements: [] } }))], ["#"]);
 });
+
+test("root slash controls match the root schema tree field", async () => {
+  const { usedSchemaScopes } = await import("../dist/editor/document/schema-usage.js");
+  const root = schemaTree({ type: ["string", "boolean", "integer", "null"] });
+  const layout = { type: "Control", scope: "#/" };
+  assert.deepEqual(schemaOccurrences(layout).map(item => item.scope), ["#"]);
+  assert.deepEqual([...usedSchemaScopes(root, layout)], ["#"]);
+  assert.equal(unusedSchemaTree(root, usedSchemaScopes(root, layout)), undefined);
+  assert.equal(layout.scope, "#/", "usage does not rewrite the document");
+});

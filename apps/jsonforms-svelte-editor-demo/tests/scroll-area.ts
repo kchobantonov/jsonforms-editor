@@ -41,6 +41,32 @@ try {
       await viewport.elementHandle(),
     );
     await area.locator('[data-slot="scroll-area-thumb"]').first().waitFor();
+    await page.locator("#example").selectOption("mixed");
+    await page.locator('.runtime-sample [data-slot="select-trigger"]').waitFor();
+    assert.equal(await page.locator("#example").inputValue(), "mixed");
+    assert.equal(await page.getByText("Unresolved binding:", { exact: false }).count(), 0);
+    await page.getByRole("button", { name: "Form Preview", exact: true }).click();
+    const mixedPreview = page.locator(".full-preview-workspace");
+    await mixedPreview.locator('[data-slot="select-trigger"]').click();
+    await page.getByRole("listbox").getByRole("option", { name: "string", exact: true }).click();
+    await mixedPreview.getByRole("textbox").fill("Mixed root value");
+    await mixedPreview.getByRole("textbox").blur();
+    await page.getByRole("radio", { name: "Design", exact: true }).click();
+    await page.locator('.runtime-sample [data-slot="select-trigger"]').waitFor();
+    assert.deepEqual(errors, []);
+    await page.locator("#example").selectOption("conditional-schema-compositions");
+    assert.equal(await page.getByText("Unresolved binding:", { exact: false }).count(), 0);
+    await page.getByRole("radio", { name: "Validate", exact: true }).click();
+    const conditionalPreview = page.locator(".resizable-workspace .preview-content");
+    await conditionalPreview.getByRole("textbox", { name: "Name", exact: true }).waitFor();
+    const recurrence = conditionalPreview.locator('[data-slot="select-trigger"]');
+    await recurrence.click();
+    await page.getByRole("listbox").getByRole("option", { name: "Never", exact: true }).click();
+    await conditionalPreview.getByLabel("Lastname", { exact: true }).waitFor();
+    await conditionalPreview.getByLabel("Age", { exact: true }).waitFor();
+    await recurrence.click();
+    await page.getByRole("listbox").getByRole("option", { name: "Daily", exact: true }).click();
+    await conditionalPreview.getByLabel("Age", { exact: true }).waitFor({ state: "hidden" });
     await page.locator("#example").selectOption("main");
     async function assertScrolls(selector: string) {
       const pane = page.locator(selector);

@@ -12,7 +12,7 @@ export function schemaOccurrences(root: Node | undefined): SchemaOccurrence[] {
     const label = `${String(node.label || node.type)}${path.length ? ` [${path.at(-1)! + 1}]` : ""}`;
     const next = [...trail, label];
     if (node.type === "Control" && typeof node.scope === "string")
-      result.push({ path, label: next.join(" / "), scope: node.scope });
+      result.push({ path, label: next.join(" / "), scope: node.scope === "#/" ? "#" : node.scope });
     node.elements?.forEach((child, index) =>
       visit(child, [...path, index], next),
     );
@@ -50,7 +50,7 @@ export function usedSchemaScopes(root: SchemaTreeNode, layout: Node | undefined)
   function visit(ui: Node, base: string) {
     if (ui.type === "Control" && typeof ui.scope === "string" &&
         (ui.scope === "#" || ui.scope.startsWith("#/")))
-      control(base + ui.scope.slice(1), ui);
+      control(ui.scope === "#/" ? base : base + ui.scope.slice(1), ui);
     ui.elements?.forEach(child => visit(child, base));
   }
   if (layout) visit(layout, "#");

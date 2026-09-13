@@ -128,3 +128,47 @@ test("presentation and action elements edit UI content without creating schema f
   assert.equal(editedButton.uischema.elements?.[1].label, "Save");
   assert.equal(original.uischema, undefined);
 });
+
+test("root controls accept both JSON Forms root scope spellings", () => {
+  for (const scope of ["#", "#/"]) {
+    const doc = initialize({
+      schema: { type: ["string", "boolean", "integer", "null"] },
+      uischema: { type: "Control", scope },
+    });
+    assert.equal(hasScope(doc.schema, scope), true);
+    assert.equal(hasScope(false, scope), true);
+    assert.equal(hasScope(undefined, scope), false);
+    assert.equal(resolve(doc.schema, scope), doc.schema);
+    assert.deepEqual(brokenScopes(doc), []);
+    const changed = updateProperties(doc, [], { schemaTypes: ["string", "boolean"] });
+    assert.deepEqual(changed.schema.type, ["string", "boolean"]);
+    assert.equal(changed.uischema.scope, scope, "preserve the source binding");
+    assert.deepEqual(doc.schema.type, ["string", "boolean", "integer", "null"]);
+  }
+});
+
+test("conditional composition controls resolve explicit and inferred schema paths", () => {
+  const doc = initialize({
+    schema: {
+      type: "object",
+      properties: { recurrence: { type: "string" } },
+      anyOf: [{
+        if: { properties: { recurrence: { const: "Never" } } },
+        then: { properties: { lastname: { type: "string" }, age: { type: "number" } } },
+      }],
+    },
+    uischema: { type: "VerticalLayout", elements: [
+      { type: "Control", scope: "#/anyOf/0/then/properties/lastname" },
+      { type: "Control", scope: "#/properties/age" },
+    ] },
+  });
+  assert.deepEqual(brokenScopes(doc), []);
+  assert.equal(resolve(doc.schema, "#/anyOf/0/then/properties/lastname").type, "string");
+  assert.equal(resolve(doc.schema, "#/properties/age").type, "number");
+  assert.equal(hasScope(doc.schema, "#/properties/missing"), false);
+  assert.equal(hasScope(doc.schema, "#/anyOf/9/then/properties/lastname"), false);
+  const changed = updateProperties(doc, [1], { schemaTypes: ["integer"] });
+  assert.equal(resolve(changed.schema, "#/anyOf/0/then/properties/age").type, "integer");
+  assert.equal(Object.hasOwn(changed.schema.properties, "age"), false);
+  assert.equal(resolve(doc.schema, "#/properties/age").type, "number");
+});
