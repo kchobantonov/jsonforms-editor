@@ -121,12 +121,12 @@ try {
       },
     };
     await page.locator(".monaco-editor").click({ position: { x: 140, y: 30 } });
-    await page.keyboard.press("Control+a");
+    await page.keyboard.press("ControlOrMeta+a");
     await page.evaluate(
       (text) => navigator.clipboard.writeText(text),
       JSON.stringify(schema),
     );
-    await page.keyboard.press("Control+v");
+    await page.keyboard.press("ControlOrMeta+v");
     await page.getByRole("button", { name: "Apply", exact: true }).click();
     await page.getByRole("radio", { name: "Design", exact: true }).click();
     await page
@@ -164,6 +164,11 @@ try {
       .getByRole("treeitem", { name: "nickname", exact: true })
       .waitFor();
 
+    // Multiple controls require an explicitly authored root layout.
+    await dragPalette(page, "VerticalLayout");
+    await page.waitForFunction(() =>
+      window.changes.at(-1)?.document.uischema.type === "VerticalLayout",
+    );
     for (const name of ["profile", "people"]) {
       const source = page
         .getByRole("tree", { name: "Schema", exact: true })
