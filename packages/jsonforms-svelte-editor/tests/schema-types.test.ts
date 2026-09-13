@@ -9,7 +9,7 @@ import {
 } from "../dist/editor/document/commands/index.js";
 import { editSchema } from "../dist/editor/document/schema-edit.js";
 import { inspectorDefinition } from "../dist/editor/inspector/definition.js";
-import { applyDrop } from "../dist/editor/dnd/drop-handler.js";
+import { applyDrop, canDrop } from "../dist/editor/dnd/drop-handler.js";
 import { elementId } from "../dist/editor/document/identity.js";
 
 test("schema-only documents stay schema-only until authoring a control", () => {
@@ -26,10 +26,23 @@ test("schema-only documents stay schema-only until authoring a control", () => {
     elementId(root),
     0,
   );
-  assert.equal(next.uischema?.elements?.[0].scope, "#/properties/text");
+  assert.equal(next.uischema?.scope, "#/properties/text");
   assert.equal(doc.uischema, undefined);
   const preset = applyDrop(doc, { kind: "palette-item", preset: "text" }, elementId(root), 0);
-  assert.equal(preset.uischema?.elements?.length, 1);
+  assert.equal(preset.uischema?.type, "Control");
+  assert.equal(preset.uischema?.elements, undefined);
+  const payload = { kind: "palette-item" as const, preset: "text" };
+  assert.equal(canDrop(preset, payload, elementId(preset.uischema!)), false);
+  assert.throws(() => applyDrop(preset, payload, elementId(preset.uischema!), 0), /compatible container/);
+  for (const type of ["VerticalLayout", "HorizontalLayout", "Group", "Categorization"]) {
+    const layout = applyDrop(doc, { kind: "palette-item", preset: type }, elementId(root), 0);
+    assert.equal(layout.uischema?.type, type);
+    assert.equal(layout.uischema?.elements?.length, type === "Categorization" ? 1 : 0);
+    if (type !== "Categorization") {
+      const filled = applyDrop(layout, payload, elementId(layout.uischema!), 0);
+      assert.equal(filled.uischema?.elements?.[0].type, "Control");
+    }
+  }
 });
 
 test("visual schema authoring and inspector preserve single and union types", () => {

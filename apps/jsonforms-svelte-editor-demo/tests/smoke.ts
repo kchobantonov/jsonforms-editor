@@ -1,3 +1,4 @@
+import type {} from "./browser-types.ts";
 import { dragPalette } from "./drag-palette.ts";
 import { selectSource } from "./source-selection.ts";
 import assert from "node:assert/strict";
@@ -86,12 +87,12 @@ try {
   await selectSource(page, "schema");
   await page.locator(".monaco-editor").click({ position: { x: 140, y: 30 } });
   await page.keyboard.press("Control+Home");
-  await page.keyboard.press("Control+a");
+  await page.keyboard.press("ControlOrMeta+a");
   await page.evaluate(
     (text) => navigator.clipboard.writeText(text),
     '{"type":"object","properties":{"fromSource":{"type":"string"}}}',
   );
-  await page.keyboard.press("Control+v");
+  await page.keyboard.press("ControlOrMeta+v");
   await page.getByRole("button", { name: "Apply", exact: true }).click();
   await page.waitForFunction(
     () => window.changes.at(-1)!.document.schema.properties.fromSource,
@@ -101,9 +102,9 @@ try {
   await page.getByRole("button", { name: "JSON Model", exact: true }).click();
   // Invalid drafts are retained and prevent visual mutation.
   await page.locator(".monaco-editor").click({ position: { x: 140, y: 30 } });
-  await page.keyboard.press("Control+a");
+  await page.keyboard.press("ControlOrMeta+a");
   await page.evaluate(() => navigator.clipboard.writeText("{invalid"));
-  await page.keyboard.press("Control+v");
+  await page.keyboard.press("ControlOrMeta+v");
   await page.getByRole("button", { name: "Apply", exact: true }).click();
   await page
     .locator('[aria-label="Components"].palette-locked')

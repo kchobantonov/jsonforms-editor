@@ -66,7 +66,14 @@ export function createSession(
     if (locked) return;
     attempt(() => {
       const path = pathFor(designRoot(document), id);
-      if (!path?.length) return; // The root has no owning layout.
+      if (!path || !document.uischema) return;
+      if (!path.length) {
+        selected = [];
+        explicitSelection = false;
+        schemaSelection = undefined;
+        commit(remove(document, path));
+        return;
+      }
       const selectedId = elementId(at(designRoot(document), selected));
       const parentId = elementId(at(designRoot(document), path.slice(0, -1)));
       const next = remove(document, path);
@@ -151,7 +158,7 @@ export function createSession(
       return document;
     },
     get hasSelection() {
-      return explicitSelection || selected.length > 0;
+      return !!document.uischema && (explicitSelection || selected.length > 0);
     },
     get selected() {
       return selected;

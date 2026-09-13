@@ -28,6 +28,7 @@ try {
     assert.equal(await palette.locator(".drag-item").count(), 1);
     await palette.getByText("Horizontal Layout", { exact: true }).waitFor();
     await palette.getByRole("searchbox").fill("");
+    await dragPalette(page, "VerticalLayout");
     await dragPalette(page, "text");
     await page.locator(".sample-select").waitFor();
     await page.locator(".sample-select").click();

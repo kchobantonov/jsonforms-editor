@@ -78,6 +78,11 @@ export function applyDrop(
         ? insert(document, target, { type: "Control", scope: payload.pointer })
         : addPreset(document, target, payload.preset);
   }
+  if (!document.uischema) {
+    // The transient empty-canvas target is not part of the authored UI schema.
+    next.uischema = next.uischema!.elements![0];
+    return next;
+  }
   const children = at(
     designRoot(next),
     pathFor(designRoot(next), targetId)!,

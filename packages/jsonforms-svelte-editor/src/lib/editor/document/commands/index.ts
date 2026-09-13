@@ -90,7 +90,8 @@ export function initialize(input: InitialForm): Document {
   }
   if (input.uischema !== undefined) validateNode(input.uischema);
   const doc = clone(input);
-  doc.schema ??= { type: "object", properties: {} };
+  if (doc.schema === undefined && doc.data === undefined)
+    doc.schema = { type: "object", properties: {} };
   return doc as Document;
 }
 export function at(root: Node, path: number[]): Node {
@@ -131,8 +132,11 @@ export function insert(
   return next;
 }
 export function remove(doc: Document, path: number[]): Document {
-  if (!path.length) throw new Error("The root layout cannot be removed.");
   const next = clone(doc);
+  if (!path.length) {
+    delete next.uischema;
+    return next;
+  }
   at(designRoot(next), path.slice(0, -1)).elements!.splice(path.at(-1)!, 1);
   return next;
 }

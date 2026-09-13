@@ -12,6 +12,7 @@ try {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(process.env.EDITOR_DEMO_URL ?? "http://127.0.0.1:4178");
     await page.locator("#integration").selectOption(integration);
+    await dragPalette(page, "VerticalLayout");
     await page.evaluate(() => {
       window.changes = [];
       document

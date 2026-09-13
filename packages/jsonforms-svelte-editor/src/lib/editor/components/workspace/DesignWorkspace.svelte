@@ -3,6 +3,8 @@
   import { untrack } from "svelte";
   import * as Resizable from "@jsonforms-svelte-shadcn-ui/resizable/index.js";
   import Button from "@jsonforms-svelte-shadcn-ui/button/button.svelte";
+  import DragZone from "../../dnd/DragZone.svelte";
+  import { elementId } from "../../document/identity.js";
   import CanvasNode from "../Canvas/CanvasNode.svelte";
   import LivePreview from "../LivePreview.svelte";
   import CollapsiblePane from "./CollapsiblePane.svelte";
@@ -67,8 +69,17 @@
               <PanelHeading title="Form Definition"
                 ><FormLanguages {session} /></PanelHeading
               >
-              <div class="design-sheet">
-                <CanvasNode node={session.layout} {session} {mode} />
+              <div class="design-sheet" class:empty-design-sheet={!session.document.uischema}>
+                {#if session.document.uischema}
+                  <CanvasNode node={session.layout} {session} {mode} />
+                {:else}
+                  <DragZone {session} sourceItems={session.items(session.layout)}
+                    targetId={elementId(session.layout)} label="Form Definition" handles>
+                    {#snippet children(item)}
+                      {#if item.node}<CanvasNode node={item.node} {session} {mode} />{/if}
+                    {/snippet}
+                  </DragZone>
+                {/if}
               </div>
             </main>
           </Resizable.Pane>

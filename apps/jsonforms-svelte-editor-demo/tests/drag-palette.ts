@@ -6,7 +6,7 @@ export async function dragPalette(page: Page, preset: string) {
     .locator(`.drag-item[aria-label="${preset}"]`);
   await item.scrollIntoViewIfNeeded();
   const zone = page
-    .locator(".design-sheet > .design-node > .drag-zone")
+    .locator(".design-sheet > .design-node > .drag-zone, .empty-design-sheet > .drag-zone")
     .first();
   await page.locator(".designer-pane").evaluate((element) => {
     element.scrollTop = 0;
@@ -17,10 +17,11 @@ export async function dragPalette(page: Page, preset: string) {
   const pane = await page.locator(".designer-pane").boundingBox();
   if (!source || !target || !pane)
     throw new Error("Missing drag source or target");
-  const targetY = Math.min(
-    target.y + target.height - 8,
-    pane.y + pane.height - 24,
-  );
+  // The first item's heading belongs to this zone, while lower points can
+  // intersect a nested layout once a long form is clipped by the viewport.
+  const targetY = target.y + Math.min(8, target.height / 2);
+  if (targetY >= pane.y + pane.height)
+    throw new Error("Root drop target is outside the designer viewport");
   await page.mouse.move(
     source.x + source.width / 2,
     source.y + source.height / 2,

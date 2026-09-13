@@ -87,7 +87,7 @@
       ><Icon size={16} aria-hidden="true" />{node.label || i18n.t(elementLabel(node.type))}</Button
     >
     {#if Object.hasOwn(node, "rule") && path}<RuleIndicator {session} {path} />{/if}
-    {#if path?.length}<NodeActions
+    {#if path && session.document.uischema}<NodeActions
         {session}
         elementId={id}
         label={String(node.label ?? node.scope ?? node.type)}

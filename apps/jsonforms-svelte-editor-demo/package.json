@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "build": "pnpm check && vite build",
-    "preview": "vite preview --host 0.0.0.0",
+    "preview": "vite preview",
     "test:browser": "pnpm test:check && node --experimental-strip-types tests/tree-theme-new.ts && node --experimental-strip-types tests/node-actions.ts && node --experimental-strip-types tests/workspace.ts && node --experimental-strip-types tests/smoke.ts && EDITOR_INTEGRATION=native node --experimental-strip-types tests/smoke.ts && node --experimental-strip-types tests/monaco.ts && node --experimental-strip-types tests/panels.ts && node --experimental-strip-types tests/inspector.ts && node --experimental-strip-types tests/translations.ts && node --experimental-strip-types tests/schema-selection.ts && node --experimental-strip-types tests/presentation-selection.ts && node --experimental-strip-types tests/schema-edit.ts && node --experimental-strip-types tests/scroll-area.ts && node --experimental-strip-types tests/schema-only-types.ts && node --experimental-strip-types tests/rules.ts && node --experimental-strip-types tests/horizontal-sizing.ts && node --experimental-strip-types tests/editor-improvements.ts",
     "test:check": "tsc --noEmit --project tsconfig.tests.json"
   },

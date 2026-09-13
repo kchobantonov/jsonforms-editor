@@ -665,3 +665,10 @@
 .editor .column-resize-handle:active { opacity: 1; }
 .editor .column-resize-grip { width: 3px; height: 28px; border-radius: 3px; background: var(--foreground); }
 .editor .column-resize-value { position: absolute; inset-inline-end: 14px; top: 8px; padding: 3px 6px; border-radius: 4px; background: var(--foreground); color: var(--background); white-space: nowrap; pointer-events: none; }
+
+.editor .empty-design-sheet {
+  height: calc(100% - 40px);
+}
+.editor .empty-design-sheet > .drag-zone {
+  min-height: 100%;
+}

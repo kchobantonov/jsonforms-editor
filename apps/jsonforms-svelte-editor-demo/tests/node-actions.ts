@@ -11,6 +11,16 @@ try {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(process.env.EDITOR_DEMO_URL ?? "http://127.0.0.1:4178");
     await page.locator("#integration").selectOption(integration);
+    assert.equal(await page.locator(".design-node").count(), 0, "missing UI schema has a blank definition");
+    await page.locator(".empty-design-sheet").click();
+    assert.equal(await page.getByRole("heading", { name: "Vertical Layout properties", exact: true }).count(), 0);
+    await dragPalette(page, "text");
+    assert.equal(await page.locator(".design-node").count(), 1, "first control is the UI root");
+    assert.equal(await page.locator(".design-sheet [data-drop-target]").count(), 0, "a root control cannot receive additional components");
+    await page.locator(".sample-select").click();
+    await page.getByRole("button", { name: "Remove #/properties/text", exact: true }).click();
+    await dragPalette(page, "VerticalLayout");
+    assert.equal(await page.locator(".design-node").count(), 1, "first layout has no implicit wrapper");
     for (const name of ["checkbox", "number", "textarea", "number", "number"]) {
       const before = await page.locator(".design-node").count();
       await dragPalette(page, name);
@@ -100,6 +110,30 @@ try {
     assert.equal(await select.count(), 0);
     await page.getByRole("button", { name: "Undo", exact: true }).click();
     await select.waitFor();
+    // Removing the root switches to generated UI without discarding schema/data.
+    const root = page.locator(".design-sheet > .design-node");
+    await root.locator(":scope > .node-heading .node-select").click();
+    await root.locator(":scope > .node-heading .canvas-node-actions button").click();
+    assert.equal(await page.locator(".runtime-sample").count(), 0);
+    assert.equal(await page.locator(".design-node").count(), 0, "removing the root leaves no placeholder layout");
+    assert.equal(await root.locator(":scope > .node-heading .canvas-node-actions").count(), 0);
+    await page.getByRole("button", { name: "Form Preview", exact: true }).click();
+    await page.locator(".full-preview-workspace input").first().waitFor();
+    await page.getByRole("radio", { name: "Design", exact: true }).click();
+    await page.getByRole("button", { name: "Undo", exact: true }).click();
+    await select.waitFor();
+    await page.getByRole("button", { name: "Redo", exact: true }).click();
+    assert.equal(await page.locator(".runtime-sample").count(), 0);
+    assert.equal(await page.locator(".design-node").count(), 0, "removing the root leaves no placeholder layout");
+    await page.locator("#example").selectOption("data-only-preview");
+    await page.getByRole("button", { name: "Discard changes", exact: true }).click();
+    await root.locator(":scope > .node-heading .node-select").click();
+    await root.locator(":scope > .node-heading .canvas-node-actions button").click();
+    await page.getByRole("button", { name: "Form Preview", exact: true }).click();
+    const generated = page.locator(".full-preview-workspace");
+    await generated.getByLabel(/^Name/).waitFor();
+    assert.equal(await generated.getByLabel(/^Name/).inputValue(), "Ada");
+    assert.equal(await generated.getByLabel(/^Age/).inputValue(), "37");
     assert.deepEqual(errors, []);
     await page.close();
     console.log(

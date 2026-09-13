@@ -37,9 +37,7 @@ const toolbar = flushSync(() =>
   mount(DemoToolbar, {
     target: document.querySelector("#demo-toolbar")!,
     props: {
-      examples: [...examples]
-        .filter(([, form]) => form.schema && form.uischema)
-        .map(([name]) => name),
+      examples: [...examples.keys()],
     },
   }),
 );

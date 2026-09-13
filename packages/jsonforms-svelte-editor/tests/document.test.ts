@@ -172,3 +172,21 @@ test("conditional composition controls resolve explicit and inferred schema path
   assert.equal(Object.hasOwn(changed.schema.properties, "age"), false);
   assert.equal(resolve(doc.schema, "#/properties/age").type, "number");
 });
+
+test("removing the UI root omits the UI schema and preserves all other form parts", () => {
+  for (const uischema of [
+    { type: "VerticalLayout", elements: [{ type: "Control", scope: "#/properties/name" }] },
+    { type: "Control", scope: "#" },
+  ]) {
+    const doc = initialize({ schema: { type: "object", properties: { name: { type: "string" } } }, data: { name: "Ada" }, uischema });
+    const next = remove(doc, []);
+    assert.equal(Object.hasOwn(next, "uischema"), false);
+    assert.deepEqual(next.schema, doc.schema);
+    assert.deepEqual(next.data, doc.data);
+    assert.deepEqual(doc.uischema, uischema);
+  }
+  for (const data of [{ name: "Ada" }, [1, 2], "text", 0, false, null]) {
+    const doc = initialize({ data, uischema: { type: "VerticalLayout", elements: [] } });
+    assert.deepEqual(remove(doc, []), { data }, "data-only forms remain available for runtime schema generation");
+  }
+});
