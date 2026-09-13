@@ -17,11 +17,13 @@
     mode,
     view,
     viewRevision,
+    outputData = $bindable<JsonValue>({}),
   }: {
     session: EditorSession;
     mode: string;
     view: "design" | "validate" | "json";
     viewRevision: number;
+    outputData?: JsonValue;
   } = $props();
   const initialDataPaneSize = 35;
   let preview = $state(false),
@@ -43,7 +45,6 @@
       ),
     ),
   );
-  let outputData = $state<JsonValue>(clone(untrack(() => inputData)));
   $effect(() => { session.previewData = outputData; });
   $effect(() => {
     const data =

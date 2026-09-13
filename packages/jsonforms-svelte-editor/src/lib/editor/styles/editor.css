@@ -482,7 +482,13 @@
 .editor .design-sheet {
   width: 100%;
 }
+.editor .designer-pane {
+  overflow: auto;
+}
 .editor .preview-content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
   padding: 16px;
 }
 .editor .preview-content h2 {
@@ -516,7 +522,8 @@
 .editor .json-workspace[hidden] {
   display: none;
 }
-.editor .json-workspace {
+.editor .json-workspace,
+.editor .full-preview-workspace {
   height: calc(100vh - 180px);
   min-height: 600px;
 }

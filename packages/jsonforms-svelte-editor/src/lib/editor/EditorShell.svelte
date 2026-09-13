@@ -9,6 +9,10 @@
   import Toggle from "@jsonforms-svelte-shadcn-ui/toggle/toggle.svelte";
   import * as ToggleGroup from "@jsonforms-svelte-shadcn-ui/toggle-group/index.js";
   import { provideEditorI18n, type EditorMessages } from "./i18n/context.js";
+  import LivePreview from "./components/LivePreview.svelte";
+  import PanelHeading from "./components/workspace/PanelHeading.svelte";
+  import FormLanguageSelect from "./components/workspace/FormLanguageSelect.svelte";
+  import type { JsonValue } from "./document/types.js";
   import SourcePanel from "./components/SourcePanel.svelte";
   import ComponentPalette from "./components/Palette.svelte";
   import DesignWorkspace from "./components/workspace/DesignWorkspace.svelte";
@@ -62,6 +66,8 @@
   setContext(editorPortalTarget, () => root);
   let visualView = $state<"design" | "validate">("design");
   let json = $state(false);
+  let fullPreview = $state(false);
+  let previewData = $state<JsonValue>({});
   const view = $derived(json ? "json" : visualView);
   let sourceMounted = $state(false);
   let viewRevision = $state(0);
@@ -90,7 +96,7 @@
         session.ruleDraftActive ? "Rule has unapplied changes. Apply or revert to resume visual editing." : "Source has unapplied changes. Apply or revert to resume visual editing.",
       )}
     </p>{/if}
-  <div class="workspace resizable-workspace" hidden={view === "json"}>
+  <div class="workspace resizable-workspace" hidden={view === "json" || fullPreview}>
     <Resizable.PaneGroup direction="horizontal">
       <Resizable.Pane defaultSize={20} minSize={12}>
         <Resizable.PaneGroup direction="vertical">
@@ -121,7 +127,7 @@
       <Resizable.Handle withHandle aria-label="Resize schema tree and canvas" />
       <Resizable.Pane defaultSize={58} minSize={25}>
         <div class="workspace-center">
-          <DesignWorkspace {session} mode={editorMode} {view} {viewRevision} />
+          <DesignWorkspace {session} mode={editorMode} {view} {viewRevision} bind:outputData={previewData} />
         </div>
       </Resizable.Pane>
       <Resizable.Handle withHandle aria-label="Resize canvas and inspector" />
@@ -140,14 +146,32 @@
         {ondraft}
       />{/if}
   </div>
+  {#if fullPreview}
+    <div class="workspace-panel full-preview-workspace">
+      <PanelHeading title="Form Preview">
+        <FormLanguageSelect translations={session.document.translations} />
+      </PanelHeading>
+      <div class="pane-scroll preview-content">
+        <LivePreview document={session.document} mode={editorMode} visible bind:data={previewData} />
+      </div>
+    </div>
+  {/if}
   <nav class="workspace-statusbar" aria-label={i18n.t("Editor views")}>
     <Toggle
       pressed={json}
       onPressedChange={(value) => {
         if (session.ruleDraftActive) return;
+        fullPreview = false;
         sourceMounted = true;
         json = value;
       }}>{i18n.t("JSON Model")}</Toggle
+    >
+    <Toggle
+      pressed={fullPreview}
+      onPressedChange={(value) => {
+        json = false;
+        fullPreview = value;
+      }}>{i18n.t("Form Preview")}</Toggle
     >
     <span class="view-spacer"></span>
     <ToggleGroup.Root
@@ -163,12 +187,14 @@
       <ToggleGroup.Item
         value="design"
         onclick={() => {
+          fullPreview = false;
           json = false;
         }}>{i18n.t("Design")}</ToggleGroup.Item
       >
       <ToggleGroup.Item
         value="validate"
         onclick={() => {
+          fullPreview = false;
           json = false;
           viewRevision++;
         }}>{i18n.t("Validate")}</ToggleGroup.Item

@@ -41,11 +41,43 @@ try {
       await viewport.elementHandle(),
     );
     await area.locator('[data-slot="scroll-area-thumb"]').first().waitFor();
+    await page.locator("#example").selectOption("main");
+    async function assertScrolls(selector: string) {
+      const pane = page.locator(selector);
+      await pane.waitFor();
+      assert.ok(await pane.evaluate(el => el.scrollHeight > el.clientHeight), `${selector} overflows`);
+      await pane.hover();
+      await page.mouse.wheel(0, 10000);
+      await page.waitForFunction(el => el && el.scrollTop > 0, await pane.elementHandle());
+      await pane.evaluate(el => { el.scrollTop = el.scrollHeight; });
+      assert.ok(await pane.evaluate(el => Math.abs(el.scrollHeight - el.clientHeight - el.scrollTop) < 2), `${selector} reaches the bottom`);
+    }
+    await assertScrolls(".designer-pane");
+    await page.getByRole("radio", { name: "Validate", exact: true }).click();
+    await assertScrolls(".resizable-workspace .preview-content");
+    const inlinePreview = page.locator(".resizable-workspace .preview-content");
+    const field = inlinePreview.locator('input[type="text"]').first();
+    await field.fill("Preview persists");
+    await field.blur();
+    await page.locator(".monaco-editor .view-lines").filter({ hasText: "Preview persists" }).waitFor();
+    await page.getByRole("button", { name: "Form Preview", exact: true }).click();
+    const expanded = page.locator(".full-preview-workspace");
+    await expanded.waitFor();
+    assert.equal(await page.locator(".designer-pane").isVisible(), false);
+    assert.ok((await expanded.boundingBox())!.width > 1200, "preview uses the full editor width");
+    assert.equal(await expanded.locator('input[type="text"]').first().inputValue(), "Preview persists");
+    await expanded.locator('input[type="text"]').first().fill("Edited expanded");
+    await expanded.locator('input[type="text"]').first().blur();
+    await page.waitForFunction(el => (el as HTMLInputElement | null)?.value === "Edited expanded", await field.elementHandle());
+    await page.getByRole("button", { name: "Form Preview", exact: true }).click();
+    await inlinePreview.waitFor();
+    assert.equal(await field.inputValue(), "Edited expanded");
+    await page.getByRole("radio", { name: "Design", exact: true }).click();
     await dragPalette(page, "Spacer");
     await page.locator(".node-select").filter({ hasText: "Spacer" }).waitFor();
     assert.deepEqual(errors, []);
     console.log(
-      `Passed ${integration}: shared ScrollArea panes, themed scrollbar, wheel scrolling and palette selection.`,
+      `Passed ${integration}: pane scrolling, full-width preview, preserved preview data and palette selection.`,
     );
     await page.close();
   }
