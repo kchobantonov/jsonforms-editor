@@ -1,0 +1,33 @@
+{
+  "name": "jsonforms-editor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^22.0.0",
+    "pnpm": ">=10.28.2"
+  },
+  "packageManager": "pnpm@10.29.2",
+  "scripts": {
+    "editor:build": "pnpm --filter @chobantonov/jsonforms-svelte-editor build && pnpm --filter @chobantonov/jsonforms-svelte-editor-webcomponent build",
+    "editor:demo:build": "pnpm editor:build && pnpm --filter jsonforms-svelte-editor-demo build",
+    "editor:demo:dev": "pnpm editor:build && pnpm --filter jsonforms-svelte-editor-demo dev",
+    "editor:demo:preview": "pnpm --filter jsonforms-svelte-editor-demo preview",
+    "build": "pnpm editor:demo:build",
+    "dev": "pnpm editor:demo:dev",
+    "preview": "pnpm editor:demo:preview",
+    "check": "pnpm -r --if-present check && pnpm --filter jsonforms-svelte-editor-demo test:check",
+    "test": "pnpm --filter @chobantonov/jsonforms-svelte-editor test",
+    "test:browser": "pnpm --filter jsonforms-svelte-editor-demo test:browser",
+    "shadcn:check": "node --experimental-strip-types scripts/shadcn-sync.ts --check",
+    "shadcn:sync": "node --experimental-strip-types scripts/shadcn-sync.ts",
+    "test:packed": "node scripts/test-packed.mjs",
+    "build:test": "pnpm editor:build && pnpm --filter jsonforms-svelte-editor-demo build --mode test"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "prettier-plugin-svelte": "^3.4.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "typescript": "^5.3.0"
+  }
+}
