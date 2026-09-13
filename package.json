@@ -22,12 +22,19 @@
     "shadcn:check": "node --experimental-strip-types scripts/shadcn-sync.ts --check",
     "shadcn:sync": "node --experimental-strip-types scripts/shadcn-sync.ts",
     "test:packed": "node scripts/test-packed.mjs",
-    "build:test": "pnpm editor:build && pnpm --filter jsonforms-svelte-editor-demo build --mode test"
+    "build:test": "pnpm editor:build && pnpm --filter jsonforms-svelte-editor-demo build --mode test",
+    "build:pages": "pnpm editor:build && pnpm --filter jsonforms-svelte-editor-demo build --base=/jsonforms-editor/",
+    "changeset": "changeset",
+    "changeset:version": "changeset version && pnpm install --lockfile-only",
+    "changeset:publish": "pnpm editor:build && node scripts/pack-release.mjs && changeset publish",
+    "release:pack": "pnpm editor:build && node scripts/pack-release.mjs"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.1",
     "prettier": "^3.8.1",
     "prettier-plugin-svelte": "^3.4.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "publint": "^0.3.24",
     "typescript": "^5.3.0"
   }
 }

@@ -1,7 +1,6 @@
 {
   "name": "@chobantonov/jsonforms-svelte-editor",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "scripts": {
     "check": "svelte-check --tsconfig ./tsconfig.json",
@@ -46,5 +45,14 @@
   "types": "./dist/index.d.ts",
   "peerDependencies": {
     "svelte": "^5.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kchobantonov/jsonforms-editor.git",
+    "directory": "packages/jsonforms-svelte-editor"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

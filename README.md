@@ -71,3 +71,9 @@ The renderer project's pages shell can include this demo's existing `dist` outpu
 ## Migration
 
 The three editor projects, their tests and `docs/form-editor` were moved from `jsonforms-svelte`, including local uncommitted work. This project owns its package manifest, lockfile, TypeScript configuration and shadcn tooling. Git history was not rewritten and no remote repository or publication was created.
+
+## CI, releases, and Pages
+
+Pushes and pull requests to `master` build and test the editor. Successful `master` builds deploy the demo to [GitHub Pages](https://kchobantonov.github.io/jsonforms-editor/). Package releases use Changesets, matching the `jsonforms-svelte` project.
+
+See [release setup and commands](docs/releases.md) for the Pages setting, npm secret, release PR workflow, and local tarball validation.

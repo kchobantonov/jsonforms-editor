@@ -1,0 +1,70 @@
+name: Build & Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Make Changesets base branch available
+        if: github.event_name == 'pull_request'
+        run: git show-ref --verify --quiet refs/heads/master || git branch master origin/master
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:pages
+      - run: pnpm check
+      - run: pnpm test
+      - name: Validate release tarballs
+        run: node scripts/pack-release.mjs
+      - name: Install Playwright
+        run: pnpm --filter jsonforms-svelte-editor-demo exec playwright install --with-deps chromium
+      - name: Test deployed demo path
+        run: node scripts/test-demo.mjs --pages
+      - name: Retain release tarballs
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-tarballs
+          path: /tmp/jsonforms-editor-release-packs/*.tgz
+      - name: Prepare Pages artifact
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/jsonforms-svelte-editor-demo/dist
+      - name: Build regression fixtures
+        run: pnpm --filter jsonforms-svelte-editor-demo build --mode test
+      - name: Run browser regressions
+        run: node scripts/test-demo.mjs
+
+  deploy:
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
